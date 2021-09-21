@@ -5,7 +5,6 @@ describe DockingStation do
   bike = Bike.new
   station = DockingStation.new
   station.dock(bike)
-  station.dock(bike)
 
   describe "#release_bike" do
     
@@ -29,7 +28,11 @@ describe DockingStation do
 
     it "Allows users to store an instance of bike" do
       #assert
-      expect(station.dock(bike)).to eq("Bike docked!")
+      expect(station.dock(bike)[0].class).to eq(Bike)
+    end
+
+    it "Raises an exception when a user attempts to dock a bike when docking station full" do
+      expect { station.dock(Bike.new) }.to raise_error
     end
   end
 

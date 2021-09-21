@@ -11,11 +11,6 @@ class DockingStation
   end
 
   def dock(bike)
-    @bikes << bike
-    return "Bike docked!"
+    @bikes.empty? ? @bikes << bike : (raise "Docking station full")
   end
-
-
-
-  
 end
