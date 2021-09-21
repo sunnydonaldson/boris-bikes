@@ -32,6 +32,7 @@ describe DockingStation do
     end
 
     it "Raises an exception when a user attempts to dock a bike when docking station full" do
+      19.times { station.dock(Bike.new) }
       expect { station.dock(Bike.new) }.to raise_error
     end
   end
