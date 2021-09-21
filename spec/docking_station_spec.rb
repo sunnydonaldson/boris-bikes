@@ -8,12 +8,20 @@ describe DockingStation do
   station.dock(bike)
 
   describe "#release_bike" do
+    
     it { is_expected.to respond_to(:release_bike) }
 
     it 'releases a working bike' do
       docking_station = DockingStation.new
+      docking_station.dock(Bike.new)
+      
       expect(docking_station.release_bike.class).to eq Bike
       expect(docking_station.release_bike.working?).to eq true
+    end
+
+    it "throws an error if no bikes" do
+      station = DockingStation.new
+      expect{docking_station.release_bike}.to raise_error
     end
   end
 

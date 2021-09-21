@@ -1,4 +1,4 @@
-require './bike'
+require_relative './bike'
 
 class DockingStation
   attr_reader :bikes
@@ -7,7 +7,7 @@ class DockingStation
   end
 
   def release_bike
-    Bike.new
+    @bikes.empty? ? (raise "no bikes") : Bike.new
   end
 
   def dock(bike)
