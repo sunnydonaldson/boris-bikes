@@ -2,15 +2,12 @@ require_relative './bike'
 
 class DockingStation
   attr_reader :bikes
+  attr_reader :capacity
   DEFAULT_CAPACITY = 20
 
-  @@hi = 2
-  def initialize(num)
-    puts @@hi
-    @@hi = num
-    
+  def initialize(capacity=DEFAULT_CAPACITY)
     @bikes = []
-    @capacity = DEFAULT_CAPACITY
+    @capacity = capacity
   end
 
   def release_bike
@@ -31,7 +28,3 @@ class DockingStation
   end 
 
 end
-
-a = DockingStation.new(1)
-b = DockingStation.new(3)
-

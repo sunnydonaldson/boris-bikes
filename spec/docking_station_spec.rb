@@ -6,6 +6,12 @@ describe DockingStation do
   station = DockingStation.new
   station.dock(bike)
 
+  describe '#initialize' do
+    it 'allows user to set docking station capacity' do
+      expect(DockingStation.new(10).capacity).to eq(10)
+    end
+  end
+  
   describe "#release_bike" do
     
     it { is_expected.to respond_to(:release_bike) }
