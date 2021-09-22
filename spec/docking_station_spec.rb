@@ -13,19 +13,26 @@ describe DockingStation do
   end
   
   describe "#release_bike" do
-    
+    docking_station = DockingStation.new
+    broken_bike = Bike.new
+    broken_bike.report_broken
     it { is_expected.to respond_to(:release_bike) }
 
     it 'releases a working bike' do
-      docking_station = DockingStation.new
       docking_station.dock(Bike.new)
       docking_station.dock(Bike.new)
       expect(docking_station.release_bike.class).to eq Bike
       expect(docking_station.release_bike.working?).to eq true
     end
 
+    it 'releases a working bike with broken and working bikes docked' do
+      docking_station.dock(bike)
+      docking_station.dock(broken_bike)
+      expect(docking_station.release_bike.working?).to eq true
+      expect { docking_station.release_bike }.to raise_error
+    end
+
     it 'does not release a broken bike' do
-      docking_station = DockingStation.new
       bike = Bike.new
       bike.report_broken
       docking_station.dock(bike)
@@ -33,13 +40,12 @@ describe DockingStation do
     end
 
     it "throws an error if no bikes" do
-      station = DockingStation.new
       expect{docking_station.release_bike}.to raise_error
     end
   end
 
   describe "#dock_bike" do
-
+  station = DockingStation.new
     it "Allows users to store an instance of bike" do
       #assert
       expect(station.dock(bike)[0].class).to eq(Bike)

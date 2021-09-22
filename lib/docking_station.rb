@@ -14,12 +14,16 @@ class DockingStation
     if empty?
       (raise "no bikes")
     else
-      @bikes[-1].working? ? @bikes.pop : (raise "No working bikes")
+      @bikes.last.working? ? @bikes.pop : (raise "No working bikes")
     end
   end
 
   def dock(bike)
-    full? ? (raise "Docking station full") : @bikes << bike 
+    if full?
+      (raise "Docking station full")
+    else
+      bike.working? ? @bikes.push(bike) : @bikes.unshift(bike)
+    end
   end
 
   private
