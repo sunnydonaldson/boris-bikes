@@ -2,9 +2,11 @@ require "docking_station"
 require "bike"
 
 describe DockingStation do
-  bike = Bike.new
+  let(:broken_bike) { double :broken_bike, :working? => false}
+  let(:bike) { double :bike, :working? => true } 
+
   station = DockingStation.new
-  station.dock(bike)
+  #station.dock(bike)
 
   describe '#initialize' do
     it 'allows user to set docking station capacity' do
@@ -14,14 +16,10 @@ describe DockingStation do
   
   describe "#release_bike" do
     docking_station = DockingStation.new
-    broken_bike = Bike.new
-    broken_bike.report_broken
     it { is_expected.to respond_to(:release_bike) }
 
     it 'releases a working bike' do
-      docking_station.dock(Bike.new)
-      docking_station.dock(Bike.new)
-      expect(docking_station.release_bike.class).to eq Bike
+      docking_station.dock(bike)
       expect(docking_station.release_bike.working?).to eq true
     end
 
@@ -33,9 +31,7 @@ describe DockingStation do
     end
 
     it 'does not release a broken bike' do
-      bike = Bike.new
-      bike.report_broken
-      docking_station.dock(bike)
+      docking_station.dock(broken_bike)
       expect { docking_station.release_bike }.to raise_error
     end
 
@@ -48,12 +44,12 @@ describe DockingStation do
   station = DockingStation.new
     it "Allows users to store an instance of bike" do
       #assert
-      expect(station.dock(bike)[0].class).to eq(Bike)
+      expect(station.dock(bike)[0]).to eq(bike)
     end
 
     it "Raises an exception when a user attempts to dock a bike when docking station full" do
-      (DockingStation::DEFAULT_CAPACITY-1).times { station.dock(Bike.new) }
-      expect { station.dock(Bike.new) }.to raise_error
+      (DockingStation::DEFAULT_CAPACITY-1).times { station.dock(bike) }
+      expect { station.dock(bike) }.to raise_error
     end
   end
 
