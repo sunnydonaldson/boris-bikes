@@ -10,7 +10,7 @@ class DockingStation
   end
 
   def release_bike
-    @bikes.empty? ? (raise "no bikes") : Bike.new
+    empty? ? (raise "no bikes") : Bike.new
   end
 
   def dock(bike)
@@ -21,5 +21,9 @@ class DockingStation
   def full?
     @bikes.length >= @capacity
   end
+
+  def empty?
+    @bikes.empty?
+  end 
 
 end
