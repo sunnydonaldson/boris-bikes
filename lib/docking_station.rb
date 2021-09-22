@@ -2,6 +2,8 @@ require_relative './bike'
 
 class DockingStation
   attr_reader :bikes
+
+
   def initialize
     @bikes = []
     @capacity = 20
@@ -12,6 +14,12 @@ class DockingStation
   end
 
   def dock(bike)
-    @bikes.length < @capacity ? @bikes << bike : (raise "Docking station full")
+    full? ? (raise "Docking station full") : @bikes << bike 
   end
+
+  private
+  def full?
+    @bikes.length >= @capacity
+  end
+
 end
