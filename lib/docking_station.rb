@@ -26,7 +26,6 @@ class DockingStation
     end
   end
 
-  private
   def full?
     @bikes.length >= @capacity
   end

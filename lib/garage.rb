@@ -1,22 +1,22 @@
 class Garage
   DEFAULT_CAPACITY = 50
-  attr_reader :storage
+  attr_reader :bikes, :capacity
 
   def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
-    @storage = []
+    @bikes = []
   end
 
   def receive(bike)
-    if full?
-      (fail "Garage full")
-    else
-      @storage.push(bike)
-    end
+    fail "Garage full" if full?
+    @bikes.push(bike)
   end
 
-  private
   def full?
-    @storage.length >= @capacity
+    @bikes.length >= @capacity
+  end
+
+  def empty?
+    @bikes.empty?
   end
 end

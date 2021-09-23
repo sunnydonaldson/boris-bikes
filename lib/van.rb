@@ -1,16 +1,19 @@
 VAN_DEFAULT_CAPACITY = 5
 class Van
-  attr_reader :storage
+  attr_reader :bikes
   def initialize(capacity = VAN_DEFAULT_CAPACITY)
     @capacity = capacity
-    @storage = []
+    @bikes = []
   end
 
   def collect(location)
-    p location.bikes.first
     until location.bikes.empty? || location.bikes.first.working? do
-      @storage.push(location.bikes.shift)
+      @bikes.push(location.bikes.shift)
     end
   end
 
+  def deliver(location)
+    fail "Location full" if location.full?
+    @bikes.pop
+  end
 end
